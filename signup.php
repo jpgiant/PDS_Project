@@ -68,49 +68,38 @@
                 $lat = $_POST['Latitude'];
                 $long = $_POST['Longitude'];
 
-                if ($pass == $repass) {
-                    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                    }
-                    $stmt = $pdo->prepare("INSERT INTO Users (fname, lname, user_name, address_line1, address_line2, city, state, zipcode, country, email, block_id, dependents_desc, photo_uri, latitude, longitude, password, last_access) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, now())");
-
-                    // Bind parameters
-                    $stmt->bindParam(1, $fname);
-                    $stmt->bindParam(2, $lname);
-                    $stmt->bindParam(3, $uname);
-                    $stmt->bindParam(4, $addr1);
-                    $stmt->bindParam(5, $addr2);
-                    $stmt->bindParam(6, $city);
-                    $stmt->bindParam(7, $state);
-                    $stmt->bindParam(8, $zcode);
-                    $stmt->bindParam(9, $country);
-                    $stmt->bindParam(10, $email);
-                    $stmt->bindParam(11, $block);
-                    $stmt->bindParam(12, $dependents);
-                    $stmt->bindParam(13, $photo);
-                    $stmt->bindParam(14, $lat);
-                    $stmt->bindParam(15, $long);
-                    $stmt->bindParam(16, $pass);
-
-                    // // Execute the statement
-                    // $stmt->execute();
-                    // header("Location: mainpage.php");
-                    // Execute the statement
-                    if ($stmt->execute()) {
-                        // Registration successful, set session variables
-                        $_SESSION['user_id'] = $pdo->lastInsertId();
-                        $_SESSION['username'] = $uname; // Assuming email is the username
-                        // Redirect to main page
-                        header("Location: mainpage.php");
-                        exit(); // Stop script execution after redirection
-                    } else {
-                        echo "Error: Registration failed.";
-                    }
-                } else {
+                // Check if passwords match
+                if ($pass != $repass) {
                     echo "Passwords do not match.";
+                    exit(); // Stop further execution
+                }
+
+                // Check if username already exists
+                $checkStmt = $pdo->prepare("SELECT COUNT(*) FROM Users WHERE user_name = ?");
+                $checkStmt->execute([$uname]);
+                $count = $checkStmt->fetchColumn();
+
+
+                if ($count > 0) {
+                    echo "Username already exists. Please choose a different username.";
+                } else {
+                    // Insert user if username is unique
+                    $stmt = $pdo->prepare("INSERT INTO Users (fname, lname, user_name, address_line1, address_line2, city, state, zipcode, country, email, block_id, dependents_desc, photo_uri, latitude, longitude, password, last_access) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, now())");
+                    $stmt->execute([$fname, $lname, $uname, $addr1, $addr2, $city, $state, $zcode, $country, $email, $block, $dependents, $photo, $lat, $long, $pass]);
+
+                    // Registration successful, set session variables
+                    $_SESSION['user_id'] = $pdo->lastInsertId();
+                    $_SESSION['username'] = $uname;
+
+                    // Insert into access relation and record sign-in time
+                    $insertStmt = $pdo->prepare("INSERT INTO access (user_id, user_name, last_signin) VALUES (?, ?, NOW())");
+                    $insertStmt->execute([$_SESSION['user_id'], $uname]);
+
+                    // Redirect to main page
+                    header("Location: mainpage.php");
+                    exit(); // Stop script execution after redirection
                 }
             }
-
-
             ?>
 
 </body>

@@ -34,10 +34,6 @@ if (isset($_POST['Submit'])) {
         // Start a session and store user ID
         $_SESSION['user_id'] = $user['user_id'];
         $_SESSION['username'] = $username;
-
-        // Insert into Access table
-        $insertStmt = $pdo->prepare("INSERT INTO access (user_id, user_name, last_signin) VALUES (?, ?, NOW())");
-        $insertStmt->execute([$user['user_id'], $username]);
         // Redirect to main page
         header("Location: mainpage.php");
         exit(); // Stop script execution after redirection

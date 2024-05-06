@@ -20,6 +20,8 @@
     // // Redirect to the login page after logout
     // header("Location: home.php");
     // exit();
+    include 'db_connection.php';
+    session_start();
 
     if (isset($_SESSION['user_id'])) {
         // Update the last sign-out timestamp for the user
