@@ -16,7 +16,7 @@
             <form action="login.php" class="form">
                 <button name="Login" type="submit">Login</button>
             </form>
-            <form action="signup.php" class="form">
+            <form action="signup2.php" class="form">
                 <button name="signup" type="submit"> signup</button>
             </form>
         </div>
