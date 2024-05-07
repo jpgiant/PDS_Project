@@ -17,7 +17,7 @@
                 <button name="Login" type="submit">Login</button>
             </form>
             <form action="signup.php" class="form">
-                <button name="signup" type="submit"> signup</button>
+                <button name="signup" type="submit"> Signup</button>
             </form>
         </div>
 
