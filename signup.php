@@ -14,22 +14,22 @@
             <form method="POST" class="form">
                 <input type="text" name="First_Name" placeholder="John" required>
                 <input type="text" name="Last_Name" placeholder="Doe" required>
-                <input type="text" name="Username" placeholder="jd119" required>
+                <input type="text" name="Username" placeholder="Username" required>
                 <input type="password" name="Password" placeholder="Password" required>
                 <input type="password" name="Repassword" placeholder="RetypePassword" required>
-                <input type="email" name="email" placeholder="email" required>
+                <input type="email" name="email" placeholder="Email" required>
                 <input type="text" name="Address_Line_1" placeholder="Apt, House Num" required>
                 <input type="text" name="Address_Line_2" placeholder="Street Name" required>
-                <input type="text" name="Zipcode" placeholder="11212" required>
+                <input type="text" name="Zipcode" placeholder="Zipcode" required>
                 <input type="text" name="City" placeholder="New York City" required>
                 <input type="text" name="State" placeholder="NY" required>
                 <input type="text" name="Country" placeholder="US" required>
-                <input type="text" name="Block" placeholder="1" required>
-                <input type="text" name="Dependents" placeholder="I have three family members" required>
+                <input type="text" name="Block" placeholder="Block Id" required>
+                <input type="text" name="Dependents" placeholder="Dependents Description" required>
                 <input type="text" name="Photo" placeholder="Upload Photo" required>
-                <input type="text" name="Latitude" placeholder="Lat" required>
-                <input type="text" name="Longitude" placeholder="Long" required>
-                <button class="btn btn-lg btn-primary btn-block" type="submit" name="regis-signup">signup</button>
+                <input type="text" name="Latitude" placeholder="Latitude" required>
+                <input type="text" name="Longitude" placeholder="Longitude" required>
+                <button class="btn btn-lg btn-primary btn-block" type="submit" name="regis-signup">Signup</button>
             </form>
             <?php
             include 'db_connection.php';

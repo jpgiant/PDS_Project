@@ -48,35 +48,39 @@ if (isset($_POST['Submit'])) {
 <head>
     <!-- <link rel="stylesheet" href="css/style.css"> -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        .center-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+
+        }
+
+        .login-form {
+            width: 300px;
+        }
+    </style>
 
 </head>
 
-<body bgcolor=azure>
-    <header>
-        <center> Login page </center>
-    </header>
-    <!-- <div style="margin:0 auto; width: 300px; text-align:center">
-        <form method="POST">
-            <br><br><br><br>
-            UserName <input type="text" name="UserName" />
-            <br><br>
-            Password <input type="password" name="password" /><br>
-            <br><br>
-            <input type="submit" name="Submit" />
-        </form>
-    </div> -->
-    <div class="container">
-        <form method="POST">
-            <div class="mb-3">
-                <label for="UserName" class="form-label">User Name</label>
-                <input type="text" class="form-control" name="UserName" aria-describedby="emailHelp">
-            </div>
-            <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" name="password">
-            </div>
-            <button type="submit" class="btn btn-primary" name="Submit">Submit</button>
-        </form>
+<body>
+    <div class="center-container">
+        <div class="container login-form">
+            <h4 class="py-3">Login</h4>
+            <form method="POST">
+                <div class="mb-3">
+                    <label for="UserName" class="form-label">User Name</label>
+                    <input type="text" class="form-control" name="UserName" aria-describedby="emailHelp">
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" name="password">
+                </div>
+                <button type="submit" class="btn btn-primary" name="Submit">Submit</button>
+            </form>
+        </div>
+
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>

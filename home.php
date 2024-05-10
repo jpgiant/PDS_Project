@@ -12,7 +12,7 @@
     <div class="wrapper">
         <div class="container">
             <br>
-            <h1>Welcome to neighbor network</h1><br><br><br>
+            <h1>Welcome to ConnectX</h1><br><br><br>
             <form action="login.php" class="form">
                 <button name="Login" type="submit">Login</button>
             </form>
