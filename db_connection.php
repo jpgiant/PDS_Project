@@ -2,9 +2,9 @@
 
 // Set connection parameters
 $host = 'localhost';
-$dbname = 'PDS_Project_2';
+$dbname = 'PDS_Project';
 $username = 'postgres';
-$password = 'tranquilty69';
+$password = '12345';
 
 try {
     // Create a new PDO instance

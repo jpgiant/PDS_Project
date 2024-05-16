@@ -58,6 +58,9 @@ $friends = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <li class="nav-item">
                         <a class="nav-link" href="neighbors.php">Neighbors</a>
                     </li>
+					<li class="nav-item">
+                        <a class="nav-link" href="block.php">Block</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" aria-current="page" href="profile.php?user_id=<?php
                                                                                             echo $user_id;
