@@ -29,10 +29,10 @@ $sql = "SELECT
             CONCAT(u.fname, ' ', u.lname) AS author_name
         FROM 
             thread t
-        JOIN 
-            message m ON t.thread_id = m.thread_id
-        LEFT JOIN 
-            message r ON m.thread_id = r.thread_id
+            JOIN 
+                message m ON t.thread_id = m.thread_id AND m.primary_msg = TRUE -- Only messages where primary_msg is true
+            LEFT JOIN 
+                message r ON m.thread_id = r.thread_id AND r.primary_msg = FALSE -- Replies where primary_msg is false
         JOIN 
             usergroup ug ON t.group_id = ug.group_id
         JOIN

@@ -1,66 +1,66 @@
 <?php
-// session_start();
+session_start();
 
-// // Check if user is logged in
-// if (!isset($_SESSION['user_id'])) {
-//     // Redirect to login page if not logged in
-//     header("Location: login.php");
-//     exit(); // Stop script execution after redirection
-// }
+// Check if user is logged in
+if (!isset($_SESSION['user_id'])) {
+    // Redirect to login page if not logged in
+    header("Location: login.php");
+    exit(); // Stop script execution after redirection
+}
 
-// $user_id = $_SESSION['user_id'];
+$user_id = $_SESSION['user_id'];
 
-// // Check if the form is submitted
-// if ($_SERVER["REQUEST_METHOD"] == "POST") {
-//     // Get form data
-//     $title = $_POST['threadTitle'];
-//     $groupId = $_POST['groupSelect'];
-//     $messageBody = $_POST['threadMessage'];
-//     $latitude = $_POST['latitude'];
-//     $longitude = $_POST['longitude'];
-//     $userId = $_SESSION['user_id'];
+// Check if the form is submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Get form data
+    $title = $_POST['threadTitle'];
+    $groupId = $_POST['groupSelect'];
+    $messageBody = $_POST['threadMessage'];
+    $latitude = $_POST['latitude'];
+    $longitude = $_POST['longitude'];
+    $userId = $_SESSION['user_id'];
 
-//     try {
-//         // Start transaction
-//         $conn->beginTransaction();
+    try {
+        // Start transaction
+        $conn->beginTransaction();
 
-//         // Insert thread into the database
-//         $insertThreadQuery = "INSERT INTO thread (title, thread_user_id, group_id) VALUES (:title, :userId, :groupId)";
-//         $stmtThread = $conn->prepare($insertThreadQuery);
-//         $stmtThread->bindParam(':title', $title);
-//         $stmtThread->bindParam(':userId', $userId);
-//         $stmtThread->bindParam(':groupId', $groupId);
-//         $stmtThread->execute();
-//         $threadId = $conn->lastInsertId();
+        // Insert thread into the database
+        $insertThreadQuery = "INSERT INTO thread (title, thread_user_id, group_id) VALUES (:title, :userId, :groupId)";
+        $stmtThread = $conn->prepare($insertThreadQuery);
+        $stmtThread->bindParam(':title', $title);
+        $stmtThread->bindParam(':userId', $userId);
+        $stmtThread->bindParam(':groupId', $groupId);
+        $stmtThread->execute();
+        $threadId = $conn->lastInsertId();
 
-//         // Insert message into the database with primary_msg set to true
-//         $insertMessageQuery = "INSERT INTO message (thread_id, body, author_id, latitude, longitude, primary_msg) VALUES (:threadId, :messageBody, :userId, :latitude, :longitude, TRUE)";
-//         $stmtMessage = $conn->prepare($insertMessageQuery);
-//         $stmtMessage->bindParam(':threadId', $threadId);
-//         $stmtMessage->bindParam(':messageBody', $messageBody);
-//         $stmtMessage->bindParam(':userId', $userId);
-//         $stmtMessage->bindParam(':latitude', $latitude);
-//         $stmtMessage->bindParam(':longitude', $longitude);
-//         $stmtMessage->execute();
+        // Insert message into the database with primary_msg set to true
+        $insertMessageQuery = "INSERT INTO message (thread_id, body, author_id, latitude, longitude, primary_msg) VALUES (:threadId, :messageBody, :userId, :latitude, :longitude, TRUE)";
+        $stmtMessage = $conn->prepare($insertMessageQuery);
+        $stmtMessage->bindParam(':threadId', $threadId);
+        $stmtMessage->bindParam(':messageBody', $messageBody);
+        $stmtMessage->bindParam(':userId', $userId);
+        $stmtMessage->bindParam(':latitude', $latitude);
+        $stmtMessage->bindParam(':longitude', $longitude);
+        $stmtMessage->execute();
 
-//         // Commit transaction if both thread and message insertion succeed
-//         $conn->commit();
-//         echo "Thread created successfully!";
-//     } catch (PDOException $e) {
-//         // Rollback transaction and display error message
-//         $conn->rollback();
-//         echo "Error: " . $e->getMessage();
-//     }
-// }
+        // Commit transaction if both thread and message insertion succeed
+        $conn->commit();
+        echo "Thread created successfully!";
+    } catch (PDOException $e) {
+        // Rollback transaction and display error message
+        $conn->rollback();
+        echo "Error: " . $e->getMessage();
+    }
+}
 
-// try {
-//     // Fetch groups from the database
-//     $fetchGroupsQuery = "SELECT * FROM \"group\"";
-//     $stmtGroups = $conn->query($fetchGroupsQuery);
-//     $groups = $stmtGroups->fetchAll(PDO::FETCH_ASSOC);
-// } catch (PDOException $e) {
-//     echo "Error fetching groups: " . $e->getMessage();
-// }
+try {
+    // Fetch groups from the database
+    $fetchGroupsQuery = "SELECT * FROM \"group\"";
+    $stmtGroups = $conn->query($fetchGroupsQuery);
+    $groups = $stmtGroups->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    echo "Error fetching groups: " . $e->getMessage();
+}
 
 
 ?>

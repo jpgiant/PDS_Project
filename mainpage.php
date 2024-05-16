@@ -77,9 +77,9 @@ $username = $_SESSION['username'];
                         <a class="nav-link" href="logout.php">Sign Out</a>
                     </li>
                 </ul>
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
+                <form class="d-flex" method="get" action="search.php">
+                    <input class="form-control me-2" type="search" placeholder="Search ConnectX" aria-label="Search" name="keyword">
+                    <button class="btn btn-outline-success" type="submit" data-bs-toggle="modal" data-bs-target="#messageDetailsModal">Search</button>
                 </form>
             </div>
         </div>
@@ -133,6 +133,7 @@ $username = $_SESSION['username'];
             </div>
         </div>
     </div>
+
 
 
     <script>

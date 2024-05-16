@@ -18,34 +18,34 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['username'])) {
 $user_id = $_SESSION['user_id'];
 $username = $_SESSION['username'];
 
-// Execute SQL query to retrieve Hood Messages
+// Execute SQL query to retrieve Friend feed Messages
 $sql = "SELECT 
             t.thread_id,
             t.title, 
             t.thread_user_id, 
             m.body, 
             m.created_on, 
-            SUM(CASE WHEN r.primary_msg = FALSE THEN 1 ELSE 0 END) AS reply_count,
+            COUNT(r.message_id) AS reply_count, -- Count of replies
             CONCAT(u.fname, ' ', u.lname) AS author_name
-        FROM 
-            thread t
-        JOIN 
-            message m ON t.thread_id = m.thread_id
-        LEFT JOIN 
-            message r ON m.thread_id = r.thread_id
-        JOIN 
-            usergroup ug ON t.group_id = ug.group_id
-        JOIN
-            users u ON t.thread_user_id = u.user_id
-        WHERE 
-            ug.user_id = :user_id AND t.group_id = 1
-        GROUP BY 
-            t.thread_id, 
-            t.title, 
-            t.thread_user_id, 
-            m.body, 
-            m.created_on,
-            author_name";
+            FROM 
+                thread t
+            JOIN 
+                message m ON t.thread_id = m.thread_id AND m.primary_msg = TRUE -- Only messages where primary_msg is true
+            LEFT JOIN 
+                message r ON m.thread_id = r.thread_id AND r.primary_msg = FALSE -- Replies where primary_msg is false
+            JOIN 
+                usergroup ug ON t.group_id = ug.group_id
+            JOIN
+                users u ON t.thread_user_id = u.user_id
+            WHERE 
+                ug.user_id = :user_id AND t.group_id = 1
+            GROUP BY 
+                t.thread_id, 
+                t.title, 
+                t.thread_user_id, 
+                m.body, 
+                m.created_on,
+                author_name;";
 
 // Prepare and execute the query
 $stmt = $pdo->prepare($sql);

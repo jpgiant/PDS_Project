@@ -30,9 +30,9 @@ $sql = "SELECT
         FROM 
             thread t
         JOIN 
-            message m ON t.thread_id = m.thread_id
+            message m ON t.thread_id = m.thread_id AND m.primary_msg = TRUE
         LEFT JOIN 
-            message r ON m.thread_id = r.thread_id
+            message r ON m.thread_id = r.thread_id AND r.primary_msg = FALSE
         JOIN 
             usergroup ug ON t.group_id = ug.group_id
         JOIN
